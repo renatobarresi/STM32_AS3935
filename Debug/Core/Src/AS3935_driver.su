@@ -1,0 +1,2 @@
+AS3935_driver.c:17:13:read_register	24	static
+AS3935_driver.c:38:9:read_data	16	static
