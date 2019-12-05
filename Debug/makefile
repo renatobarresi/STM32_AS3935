@@ -38,7 +38,7 @@ all: AS3935_Interface.elf secondary-outputs
 
 # Tool invocations
 AS3935_Interface.elf: $(OBJS) $(USER_OBJS) D:\renato\Profesional\facultad\Tesis\Tesis\ Renato\ Barresi\Development\Thesis_workspace\AS3935_Interface\STM32F446RETX_FLASH.ld
-	arm-none-eabi-gcc -o "AS3935_Interface.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"D:\renato\Profesional\facultad\Tesis\Tesis Renato Barresi\Development\Thesis_workspace\AS3935_Interface\STM32F446RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="AS3935_Interface.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+	arm-none-eabi-gcc -o "AS3935_Interface.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"D:\renato\Profesional\facultad\Tesis\Tesis Renato Barresi\Development\Thesis_workspace\AS3935_Interface\STM32F446RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="AS3935_Interface.map" -Wl,--gc-sections -static -specs=rdimon.specs -lc -lrdimon --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

@@ -28,12 +28,15 @@ extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
+
 #include <stdint.h>
+#include <stdio.h>
+#include <string.h>
 #include "stm32f4xx_hal.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#define DEBUG_SH		1
 /* USER CODE END Includes */
 
 /* Exported types ------------------------------------------------------------*/

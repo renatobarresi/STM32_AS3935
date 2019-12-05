@@ -27,6 +27,7 @@ uint16_t ln_enrgy;
 /*----------Public Functions---------------------*/
 
 uint8_t read_data(void);
+void read_register(uint8_t reg_addr);
 
 
 

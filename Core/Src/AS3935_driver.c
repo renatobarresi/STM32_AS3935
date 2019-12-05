@@ -14,19 +14,23 @@
  *
  * Returns -> Should return OK if reading was ok
  */
-static void read_register(uint8_t reg_addr){
-	  uint8_t command[2] = {0x00, 0xFF};
+void read_register(uint8_t reg_addr){
+	  uint8_t command = 0;
 	  //Read mode
-	  command[0] |= 1 << 6;
+	  command |= 1 << 6;
 
 	  //Address of register
-	  command[0] |= reg_addr << 0;
+	  command |= reg_addr << 0;
 
 	  //Transmit command to AS3935
-	  HAL_SPI_Transmit(&hspi1, command, 2, HAL_MAX_DELAY);
+	  HAL_SPI_Transmit(&hspi1, &command, 1, HAL_MAX_DELAY);
 
 	  //store received value reg_value
 	  HAL_SPI_Receive(&hspi1, &reg_value, 1, HAL_MAX_DELAY);
+
+#if DEBUG_SH
+	  printf("The value of the register %#X is %#X\n", reg_addr, reg_value);
+#endif
 }
 
 /*

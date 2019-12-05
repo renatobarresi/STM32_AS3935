@@ -65,6 +65,9 @@ static void MX_SPI1_Init(void);
 static void MX_USART3_UART_Init(void);
 /* USER CODE BEGIN PFP */
 
+#if DEBUG_SH
+extern void initialise_monitor_handles();
+#endif
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -79,7 +82,10 @@ static void MX_USART3_UART_Init(void);
 int main(void)
 {
   /* USER CODE BEGIN 1 */
-
+	#if DEBUG_SH
+	initialise_monitor_handles();
+	printf("AS3935 LIGHTNING DETECTOR\n");
+	#endif
   /* USER CODE END 1 */
   
 
@@ -104,7 +110,7 @@ int main(void)
   MX_SPI1_Init();
   MX_USART3_UART_Init();
   /* USER CODE BEGIN 2 */
-  uint8_t command[2] = {0x00, 0xFF};
+  /*uint8_t command[2] = {0x00, 0xFF};
   //Read mode
   command[0] |= 0x01 << 6;
 
@@ -112,6 +118,8 @@ int main(void)
   command[0] |= 0x09 << 0;
 
   HAL_SPI_Transmit(&hspi1, command, 2, HAL_MAX_DELAY);
+   */
+  read_register(0x09);
   /* USER CODE END 2 */
 
   /* Infinite loop */
