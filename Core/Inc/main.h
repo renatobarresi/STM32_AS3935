@@ -28,15 +28,13 @@ extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
-
-#include <stdint.h>
-#include <stdio.h>
-#include <string.h>
 #include "stm32f4xx_hal.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#define DEBUG_SH		1
+#include <stdio.h>
+#include <string.h>
+
 /* USER CODE END Includes */
 
 /* Exported types ------------------------------------------------------------*/
@@ -73,7 +71,7 @@ void Error_Handler(void);
 #define SWO_Pin GPIO_PIN_3
 #define SWO_GPIO_Port GPIOB
 /* USER CODE BEGIN Private defines */
-
+#define DEBUG_SH		0
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus

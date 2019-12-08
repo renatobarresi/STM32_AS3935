@@ -32,17 +32,45 @@ void read_register(uint8_t reg_addr){
 	  printf("The value of the register %#X is %#X\n", reg_addr, reg_value);
 #endif
 }
+/*
+ * Function used to write a value into an AS3935 register
+ *
+ *	reg_addr: Register address
+ *	start_bit: The bit number of the register to load the value (e.g 0x00[5:1] --> 1 would be the start bit
+ *	value: Value to write
+ */
+void write_value_register(uint8_t reg_addr, uint8_t start_bit, uint8_t value){
+	uint8_t command[] = {0,0};
+	//uint8_t write_value = 0;
 
+	//write mode
+	command[0] |= 1 << 7;
+
+	//register address
+	command[0] |= reg_addr << 0;
+
+	//register value
+	command[1] |= value << start_bit;
+
+	//Transmit command to AS3935
+	HAL_SPI_Transmit(&hspi1, command, 2, HAL_MAX_DELAY);
+#if DEBUG_SH
+	  printf("Writing to register: %#X, value: %#X\n", reg_addr, command);
+#endif
+}
 /*
  *	Function used to read the IRQ Register (0x03) in the AS3935
  *
  *	Returns -> 1 if lightning detected, 0 if not
  */
 
-uint8_t read_data(void){
+uint8_t read_ln_data(void){
 
 	//Flag indicating if a lightning has been detected or not
 	uint8_t ln_flag = 0;
+
+	//Delay 2ms
+	//HAL_Delay(2);
 
 	//Read value of REG0x03[3:0]
 	read_register(0x03);
@@ -55,9 +83,6 @@ uint8_t read_data(void){
 
 		ln_flag = 1;
 		reg_data = 0;
-
-		//Delay 2ms
-		HAL_Delay(2);
 
 		//Energy calculation: Read REG0x06[4:0], REG0x05[7:0] REG0x04[7:0]
 		ln_enrgy = 0;
@@ -76,11 +101,24 @@ uint8_t read_data(void){
 
 	}else if(reg_data == 4){			//if REG0x03[3:0] == 0b0100, Disturber detected
 		//Do something
+		printf("Disturb detected");
+		uint8_t a;
+		a=0;
 
 	}else if(reg_data == 1){			//if REG0x03[3:0] == 0b0001, Noise level too high
 		//Do something
-
+		printf("Noise level too high");
 	}
 
 	return ln_flag;
+}
+
+/*
+ * Function used to configure the AS3935
+ */
+void load_config(void){
+
+	/* AFE setting */
+	//REG0x00[5:1]  Indoor 10010, Outdoor 01110
+
 }

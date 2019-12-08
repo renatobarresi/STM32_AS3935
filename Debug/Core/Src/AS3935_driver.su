@@ -1,2 +1,4 @@
 AS3935_driver.c:17:6:read_register	24	static
-AS3935_driver.c:42:9:read_data	16	static
+AS3935_driver.c:42:6:write_value_register	24	static
+AS3935_driver.c:67:9:read_ln_data	16	static
+AS3935_driver.c:119:6:load_config	4	static
